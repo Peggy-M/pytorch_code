@@ -177,3 +177,58 @@ for epoch in range(1, epochs + 1):
 # 9.保存模型
 torch.save(model.state_dict(), "mnist_cnn.pth")
 print("模型已保存 mnist_cnn.pth")
+
+# 10，可视化训练过程
+# 设置中文字体（选择一个你系统中存在的）
+plt.rcParams["font.sans-serif"] = ["SimHei"]  # 黑体（Windows 常见）
+# plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 微软雅黑
+# plt.rcParams['font.sans-serif'] = ['PingFang SC']  # macOS
+# plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei']  # Linux
+# 必须设置，否则负号会显示为方块
+plt.rcParams["axes.unicode_minus"] = False
+
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 2, 1)
+plt.plot(train_losses, label="训练损失")
+plt.plot(test_losses, label="测试损失")
+plt.title("模型损失")
+plt.xlabel("Epoch")
+plt.ylabel("损失")
+plt.legend()
+plt.subplot(1, 2, 2)
+plt.plot(train_accuracies, label="训练准确率")
+plt.plot(test_accuracies, label="测试准确率")
+plt.title("模型准确率")
+plt.xlabel("Epoch")
+plt.ylabel("准确率(%)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
+# 11, 预测示例函数
+def predict_and_show(model, test_loader, device, num_images=10):
+    model.eval()
+    dataiter = iter(test_loader)
+    images, labels = next(dataiter)
+
+    images, labels = images.to(device), labels.to(device)
+    outputs = model(images)
+    _, predicted = torch.max(outputs, 1)
+
+    # 显示图片和预测结果
+    fig = plt.figure(figsize=(15, 3))
+    for i in range(num_images):
+        ax = fig.add_subplot(1, num_images, i + 1)
+        img = images[i].cpu().numpy().squeeze()
+        ax.imshow(
+            img, cmap="gray"
+        )  # 手写数字图片是黑白图片，所以这里需要设置 cmap='gray'
+        ax.set_title(f"真实: {labels[i].item()}\n预测: {predicted[i].item()}")
+        ax.axis("off")
+    plt.tight_layout()
+    plt.show()
+
+
+# 12，显示预测结果
+predict_and_show(model, test_loader, device)
