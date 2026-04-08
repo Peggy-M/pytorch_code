@@ -21,7 +21,7 @@ for i in range(len(train_data)):
     # 通过 numpy 将原来的张量转为 numpy 数组, astype 将数组里面的数据类型转为 uint8 的这种数据类型
     image = (image.squeeze() * 255).numpy().astype(np.uint8)
     train_images.append(image)
-    train_labels.append(label)
+    train_labels.append(lable)
 
 train_images = np.array(train_images)
 train_labels = np.array(train_labels)
@@ -35,7 +35,7 @@ for i in range(len(test_data)):
     # 通过 numpy 将原来的张量转为 numpy 数组, astype 将数组里面的数据类型转为 uint8 的这种数据类型
     image = (image.squeeze() * 255).numpy().astype(np.uint8)
     test_images.append(image)
-    test_labels.append(label)
+    test_labels.append(lable)
 
 test_images = np.array(test_images)
 test_labels = np.array(test_labels)

@@ -27,8 +27,8 @@ class CustomMNISTDataset(Dataset):
             self.lables_file = os.path.join(self.data_dir, 'test_labels.npy')
 
         # 加载数据
-        self.images = np.load(self.images_file)
-        self.lables = np.load(self.lables_file)
+        self.images = np.load(self.images_file, allow_pickle=True)
+        self.lables = np.load(self.lables_file, allow_pickle=True)
 
     def __len__(self):
         # 返回数据集的样本数量(有多少个图片就有多少个样本数据)
@@ -47,7 +47,7 @@ class CustomMNISTDataset(Dataset):
         image = Image.fromarray(image.astype("uint8"),mode="L")
 
         # 应用转化函数
-        if self.transform:
+        if self.transfrom:
             image = self.transfrom(image) 
-
+            
         return image,label    
