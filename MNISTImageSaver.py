@@ -9,6 +9,7 @@ import torch
 from torchvision import datasets, transforms
 from PIL import Image
 
+
 # 创建目录结构
 def crate_directory_struture():
     base_dir = "./mist_images"
@@ -52,7 +53,6 @@ def save_mnist_as_images():
         if (i + 1) % 10000 == 0:
             print(f"已保存{i + 1}张训练图像")
 
-
     # 保存测试数据
     print("保存测试数据...")
     test_labels = []
@@ -66,17 +66,17 @@ def save_mnist_as_images():
         test_labels.append([f"{label}/{i:05d}.png", label])
 
         if (i + 1) % 10000 == 0:
-            print(f"已保存{i + 1}张训练图像")        
+            print(f"已保存{i + 1}张训练图像")
 
-    # 保存标签信息到本地        
-    train_labels_df = pd.DataFrame(train_labels,columns=['filename','label'])
-    test_labels_df = pd.DataFrame(test_labels,columns=['filename','label'])
-    train_labels_df.to_csv(os.path.join(base_dir,'train_lables.csv'),index=False)
-    test_labels_df.to_csv(os.path.join(base_dir,'test_labeles.csv'),index=False)
+    # 保存标签信息到本地
+    train_labels_df = pd.DataFrame(train_labels, columns=["filename", "label"])
+    test_labels_df = pd.DataFrame(test_labels, columns=["filename", "label"])
+    train_labels_df.to_csv(os.path.join(base_dir, "train_lables.csv"), index=False)
+    test_labels_df.to_csv(os.path.join(base_dir, "test_lables.csv"), index=False)
 
     print(f"数据保存到:{base_dir}")
     print(f"训练样本数:{len(train_labels)}")
     print(f"测试样本数:{len(test_labels)}")
 
 
-save_mnist_as_images()   
+save_mnist_as_images()
