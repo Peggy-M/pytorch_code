@@ -1,0 +1,7 @@
+# 忽略图片文件
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.bmp
